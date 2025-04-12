@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Gmaps_project</string>
+    <string name="my_map_api_key">YOUR_API_KEY</string>
+</resources>
