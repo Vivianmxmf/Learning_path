@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private final int FINE_PERMISSION_CODE = 1;
     private GoogleMap myMap;
+    private SearchView mapSearchView;
+
+
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient; 
 
@@ -30,11 +33,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        mapSearchView = findViewById(R.id.mapSearch);
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query){
+                String location = mapSearchView.getQuery().toString();
+                List<Address> addressList = null;
+
+                if (location != null || !location.equals("")){
+                    Geocoder geocoder = new Geocoder(MainActivity.this);
+                    try{
+                        addressList = geocoder.getFromLocationName(location, 1);
+                    }
+                    catch(IOException e){
+                        e.printStackTrace();
+                    }
+                    Address address = addressList.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    myMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                    myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText){
+                return false;
+            }
+        });
+        mapFragment.getMapAsync(MainActivity.this); // This ensures that the map is set up and ready to be used when the activity or fragment is created.
+        
+
+
+
     }
 
     private void getLastLocation(){
@@ -54,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     mapFragment.getMapAsync(MainActivity.this);
+                    //which loads the map in an asynchronous manner, meaning the map is requested to be loaded, but the application does not wait for the map to be ready before continuing with other tasks. 
+                    //Instead, it runs the map loading process in the background, and once the map is ready, it triggers a callback to notify that the map is available for interaction.
+                    
                 }
 
             }

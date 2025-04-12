@@ -15,4 +15,18 @@
         android:context=".MapsActivity"
        />
 
+    <SearchView
+        android: id = "@+id/mapSearch"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_margin = "10dp"
+        android:querryHint = "Search..."
+        android:iconifiedByDefault = "false"
+        android:elevation= "sdp"
+        android:background="@drawable/bg_search_view"
+        app:layout_constraintStart_toStartOf = "parent"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintTop_toTopOf = "parent"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
