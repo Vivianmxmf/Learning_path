@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap myMap;
     private SearchView mapSearchView;
 
-    
+    private EditText formLocation;
+    private EditText toLocation;    
+    private Button getDirectionButton;
 
 
     Location currentLocation;
@@ -34,6 +36,44 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        formLocation = findViewById(R.id.formLocation);
+        toLocation = findViewById(R.id.toLocation);
+        getDirectionButton = findViewById(R.id.getDirectionButton);
+        getDirectionButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String formLocation = formLocation.getText().toString();
+                String toLocation = toLocation.getText().toString();
+
+                if (formLocation.equals("") || toLocation.equals("")){
+                    Toast.makeText(MainActivity.this, "Please enter both locations", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    getDirections(formLocation, toLocation);
+                }
+            }
+        });
+
+        private void getDirections(String formLocation, String toLocation){
+            try{
+                Uri uri = Uri.parse("https://maps.google.com/maps/dir/" + formLocation + "/" + toLocation);
+                
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri); //an Intent is an object that allows an application to communicate with other components of the Android system, such as activities, services, and broadcast receivers. Intents are used to perform actions like starting new activities, sending data between components, or triggering system-level events.
+                intent.setPackage("com.google.android.apps.maps");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            catch(ActivityNotFoundException e){
+                Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.maps");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            }
+        }
+    
+    
+    }
+                
+                
 
         mapSearchView = findViewById(R.id.mapSearch);
 
