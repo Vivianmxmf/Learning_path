@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap myMap;
     private SearchView mapSearchView;
 
+    
+
 
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient; 
@@ -141,6 +143,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
           
         
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == R.id.mapNone){
+            myMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+        }
+        else if (item.getItemId() == R.id.mapSatellite){
+            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        }
+        else if (item.getItemId() == R.id.mapTerrain){
+            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        }
+        else if (item.getItemId() == R.id.mapHybrid){
+            myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }
+        else if (item.getItemId() == R.id.mapNormal){
+            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
+        return true;
+
     }
 
 
