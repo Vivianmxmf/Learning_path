@@ -158,6 +158,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
         myMap.addMarker(options);
 
+        myMap.getUiSettings().setZoomControlsEnabled(true);
+        myMap.getUiSettings().setZoomCompassEnabled(true);
+        
+
     }
 
     //Without this method, your app wouldn't know if: The user granted location permissions,The user denied location permission
