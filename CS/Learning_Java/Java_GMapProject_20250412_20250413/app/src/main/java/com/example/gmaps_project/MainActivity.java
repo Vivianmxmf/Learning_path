@@ -160,6 +160,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         myMap.getUiSettings().setZoomControlsEnabled(true);
         myMap.getUiSettings().setZoomCompassEnabled(true);
+
+        myMap.getUiSettings().setZoomGesturesEnabled(true);
+        myMap.getUiSettings().setScrollGesturesEnabled(true);
         
 
     }
