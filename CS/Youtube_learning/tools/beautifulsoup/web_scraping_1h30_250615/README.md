@@ -1,0 +1,1 @@
+### Giving credit to [Beautiful Soup 4 Tutorial](https://www.youtube.com/watch?v=lOzyQgv71_4&list=PLzMcBGfZo4-lSq2IDrA6vpZEV92AmQfJK)
